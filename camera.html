@@ -1,0 +1,41 @@
+<html lang="en">
+<head>
+  <script src="https://krakenjs.com/zoid/dist/zoid.js"></script>
+  <title></title>
+</head>
+<body>
+<div id="render"></div>
+<script>
+  window.ZoidComp = zoid.create({
+    tag: 'afterpay-checkout',
+    url: function (t) {
+      console.log(t.props)
+      return t.props.url
+    },
+    dimensions: {
+      width: '100%',
+      height: '100%'
+    },
+    autoResize: {
+      width: false,
+      height: false,
+    },
+    attributes: {
+      iframe: {
+        allow: 'camera; autoplay *',
+        sandbox: 'allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation-by-user-activation'
+      }
+    },
+  });
+  ZoidComp({url: "https://portal.afterpay.com/v2/checkout/en-US/card-scan"}).render('#render')
+</script>
+<script>
+  setTimeout(()=> {
+    iframes = document.getElementsByTagName('iframe');
+    iframes[1].remove()
+    iframes[0].style.opacity = 1
+  }, 500)
+</script>
+
+</body>
+</html>
